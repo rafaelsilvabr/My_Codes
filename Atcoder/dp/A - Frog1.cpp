@@ -5,7 +5,10 @@ int V[100010];
 int N;
 vector<int> mem(100010,-1);
 int dp(int i){
-    if(i>=N-1){
+    if(i>N-1){
+        return 1e9+1;
+    }
+    if(i==N-1){
         return 0;
     }
     if(mem[i]!=-1){

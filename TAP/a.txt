@@ -1,0 +1,6 @@
+5
+V aaabbb
+V aaabb
+V aaaab
+F bb
+F aab
