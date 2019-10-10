@@ -12,8 +12,9 @@ long long dp(long long num,int i){
         return MEM[num][i];
     }
     long long aux=dp(num,i+1);
-    if(num+w[i]>=v[i]){
-        aux=max(1+dp(num-v[i]+w[i],i+1),aux);
+    int res=min(-v[i]+w[i],num-v[i]+w[i]);
+    if(res>=0){
+        aux=max(1+dp(res,i+1),aux);
     }
     return MEM[num][i]=aux;
 }
