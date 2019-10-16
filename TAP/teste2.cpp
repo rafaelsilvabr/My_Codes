@@ -1,42 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-#define MAX 100010
-
-long long Casas[MAX];
-long long soma;	
-
-int busca_binaria(int min,int max,int num){
-	int meio;
-	if(num<Casas[0]) return -1;
-	if(num>=Casas[max]) return max;
-	while(min<=max){
-		meio=(min+max)/2;
-		if(Casas[meio]+num==soma) return meio;
-		if(Casas[meio]+num>soma){
-			max=meio-1;
-		}
-		if(Casas[meio]+num<soma){
-			min=meio+1;
-		}
-	}
-	return -1;
-}
-
 int main(){
-	int N;
-	cin>>N;
+	string Number;
+	cin>>Number;
+	int N=Number.size();
+	string n_final={};
 	for(int i=0;i<N;i++){
-		cin>>Casas[i];
-	}
-	cin>>soma;
-	int min=0,max=N-1;
-	for(int i=0;i<N-1;i++){
-		min=i+1;
-		int id = busca_binaria(min,max,Casas[i]);
-		if(id>-1){
-			cout<<Casas[i]<<" "<<Casas[id]<<endl;
+		if(Number[i]!='1'){
+			n_final.push_back(Number[i]);
 		}
 	}
+	int c=0;
+	while(c<n_final.size() && n_final[c]!='2'){
+		c++;
+	}
+	n_final.insert(c,N-n_final.size(),'1');
+	cout<<n_final<<endl;
 	return 0;
 }
