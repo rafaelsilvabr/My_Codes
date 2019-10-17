@@ -2,6 +2,7 @@
 using namespace std;
 int main(){
     int N;
+    int a;
     cin>>N;
     string str;
     for(int i=0;i<N;i++){
