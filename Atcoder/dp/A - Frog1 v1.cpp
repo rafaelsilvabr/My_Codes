@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int V[100011];
+int V[100010];
 int N;
 vector<int> mem(100010,-1);
 int dp(int i){
