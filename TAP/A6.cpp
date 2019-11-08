@@ -22,6 +22,7 @@ int getValue(string str,char C,char j){
         }
         vector<string>aux(9,"aa");
         istringstream ss(str);
+        int a;
         int i=0;
         while(getline(ss,aux[i],'+')){
             i++;
