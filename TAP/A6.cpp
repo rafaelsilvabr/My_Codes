@@ -3,49 +3,46 @@ using namespace std;
 string lines[10];
 string matrix[10][9];
 int ans[10][9];
+vector<vector<int>> mem(10,vector<int>(9,-2));
 
-int getValue(string str,char C,char j){
-    if(str[0]>=0 && str[1]<=9){
-        int num=0,size=str.size();
-        int pot=1;
-        while(size>0){
-            num=(str[size-1]-'0')*pot;
+int getValue(string str,int C,int j){
+    if(str[0]>='0' && str[0]<='9'){
+        int pot=1,num=0;
+        int k=str.size()-1;
+        while(k>=0){
+            num+=(str[k]-'0')*pot;
             pot*=10;
-            size--;
+            k--;
         }
-        cout<<"p1: "<<num<<"\n";
+        mem[C][j]=num;
         return num;
-    }else{
-        cout<<"p2="<<str[0]<<" "<<str[1]<<endl;
-        if(str[0]-'A'==C && str[1]-'0'==j){
+    }
+    // cout<<"search for matrix["<<C<<"]["<<j<<"]"<<endl;
+    // cout<<"mem"<<mem[C][j]<<endl;
+
+    if(mem[C][j]>-2){
+        return mem[C][j];
+    }
+    istringstream ss(str);
+    string aux[10]; int i=0;
+    while(getline(ss,aux[i],'+')){
+        i++;
+    }
+    int num=0;
+    mem[C][j]=-1;
+    for(int i2=0;i2<i;i2++){
+        int i_aux;
+        int a=aux[i2][0]-'A', b=aux[i2][1]-'1';
+        i_aux=getValue(matrix[a][b],a,b);
+        if(i_aux==-1){
             return -1;
         }
-        vector<string>aux(9,"aa");
-        istringstream ss(str);
-        int a;
-        int i=0;
-        while(getline(ss,aux[i],'+')){
-            i++;
-        }
-        for(int i2=0;i2<i;i2++){
-            cout<<"|"<<aux[i]<<" ";
-        }cout<<endl;
-        int n_ans=0;int f_aux=0;
-        for(int i2=0;i2<i;i2++){
-            int a=aux[i][0]-'A'; int b=aux[i][1]-'0';
-            n_ans = getValue(matrix[a][b],C,j);
-            if(n_ans==-1){
-                return -1;
-            }else{
-                f_aux+=n_ans;
-            }
-        }
-        return f_aux;
+        num+=i_aux;
     }
+    mem[C][j]=num;
+    return num;
 }
-
 int main(){
-
 
     for(int i=0;i<10;i++){
         for(int i2=0;i2<9;i2++){
@@ -62,7 +59,9 @@ int main(){
 
     for(int i=0;i<10;i++){
         for(int i2=0;i2<9;i2++){
-            cout<<ans[i][i2]<<" ";
+            if(mem[i][i2]==-1) cout<<"*";
+            else cout<<mem[i][i2];
+            if(i2<8) cout<<" ";
         }cout<<endl;
     }
     return 0;
