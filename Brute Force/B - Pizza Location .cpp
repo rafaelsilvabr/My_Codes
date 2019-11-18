@@ -8,7 +8,7 @@ typedef struct{
 
 typedef struct{
     pair <int,int> coord;
-    vector<Solitaire> solitaires;
+    bitset<101> solitaires;
 }Location;
 
 int main(){
@@ -48,20 +48,37 @@ int main(){
             }
 
             if(sqrt(pow(eucl_x,2)+pow(eucl_y,2))<=range){
-                location[i].solitaires.push_back(people[i2]);
+                location[i].solitaires |= (1 << i2);
             }
         }
-
     }
     int n_max=0;
+    //  for(int i=0;i<n_locations;i++){
+    //      cout<<i<<" "<<location[i].solitaires<<endl;
+    //  }
 
-
+    for(int i=0;i<=pow(10,n_places);i++){
+        bitset<101> aux=0;
+        if(__builtin_popcount(i)==n_places){
+            //cout<<i;
+            for(int i2=0;i2<21;i2++){
+                if((i&(1<<i2))){
+                    aux=aux|location[i2].solitaires;
+                }  
+            }
+//            cout<<"aux "<<aux<<endl;
+            int n_aux=0;
+            for(int c=0;c<101;c++){
+                if(aux[c]==1){
+                    n_aux+=people[c].num;
+                }
+            }
+            if(n_aux>n_max){
+                n_max=n_aux;
+            }
+        }
+    }
     //Output
-    cout<<n_max;
-
-
-   
-
-
+    cout<<n_max<<endl;
     return 0;
 }

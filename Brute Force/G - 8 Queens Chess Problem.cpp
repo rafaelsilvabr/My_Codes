@@ -5,7 +5,7 @@ static int n_ans=0;
 void print_board(int board[8][8]){
     for(int i=0;i<8;i++){
         for(int i2=0;i2<8;i2++){
-            if(board[i][i2]==1){
+            if(board[i2][i]==1){
                 ans[n_ans]+=(char)(i2+1+'0');
                 if(i<7) ans[n_ans]+=" ";
             }
@@ -80,7 +80,8 @@ int main(){
         cout<<"SOLN       COLUMN\n";
         cout<<" #      1 2 3 4 5 6 7 8\n\n";
         int j=0;
-        for(int c=n_ans-1;c>=0;c--){
+        sort(ans,ans+n_ans);
+        for(int c=0;c<n_ans;c++){
             j++;
             printf("%2d",j);
             cout<<"      ";
@@ -88,6 +89,7 @@ int main(){
             ans[c]="";
         }
         n_ans=0;
+        if(i<n-1)cout<<endl;
     }
     return 0;
 }
