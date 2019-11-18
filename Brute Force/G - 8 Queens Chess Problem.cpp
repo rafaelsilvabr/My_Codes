@@ -59,13 +59,6 @@ bool resolve_board(int board[8][8],int inicio,int colunas){
     return false;
 }
 
-bool all_resolve_board(int board[8][8],int inicio,int colunas){
-
-
-
-}
-
-
 int main(){
     int n;
     cin>>n;
@@ -84,19 +77,17 @@ int main(){
         board[Queen.first-1][Queen.second-1]=true;
         resolve_board(board,Queen.second-1,1);
 
-        cout<<"SOLN       COLUMN"<<endl;
-        cout<<" #       1 2 3 4 5 6 7 8"<<endl;
+        cout<<"SOLN       COLUMN\n";
+        cout<<" #      1 2 3 4 5 6 7 8\n\n";
         int j=0;
         for(int c=n_ans-1;c>=0;c--){
             j++;
-            cout<<" "<<j<<"       ";
+            printf("%2d",j);
+            cout<<"      ";
             cout<<ans[c]<<endl;
             ans[c]="";
         }
         n_ans=0;
     }
-//    print_board(board);
-
-
     return 0;
 }
