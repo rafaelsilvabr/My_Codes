@@ -12,6 +12,10 @@ typedef struct{
 }Location;
 
 int main(){
+
+	ios::sync_with_stdio(false);
+	cin.tie(NULL);
+
     int n_places,range;
     cin>>n_places>>range;
     Location location[21]; 
@@ -52,12 +56,12 @@ int main(){
             }
         }
     }
-    int n_max=0;
-    //  for(int i=0;i<n_locations;i++){
-    //      cout<<i<<" "<<location[i].solitaires<<endl;
-    //  }
+    long long n_max=0;
+      for(int i=0;i<n_locations;i++){
+          cout<<i<<" "<<location[i].solitaires<<endl;
+      }
 
-    for(int i=0;i<=pow(10,n_places);i++){
+    for(int i=0;i<=pow(10,n_locations);i++){
         bitset<101> aux=0;
         if(__builtin_popcount(i)==n_places){
             //cout<<i;
@@ -66,8 +70,8 @@ int main(){
                     aux=aux|location[i2].solitaires;
                 }  
             }
-//            cout<<"aux "<<aux<<endl;
-            int n_aux=0;
+            cout<<"aux "<<aux<<endl;
+            long long n_aux=0;
             for(int c=0;c<101;c++){
                 if(aux[c]==1){
                     n_aux+=people[c].num;
