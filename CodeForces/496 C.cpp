@@ -22,20 +22,16 @@ int main(){
     long long repeat=0;
     int n;
     cin>>n;
+
     long long nums[MAX];
     set<long long> num;
+    map<long long,long long> mp;
     long long pot=2;
     int count=0;
 
     for(int i=0;i<n;i++){
         cin>>nums[i];
-        if(!(repeat & (1LL << nums[i]))){
-            repeat |= (1LL<<nums[i]);
-        }else{
-            repeat &= ~(1LL<<nums[i]);
-        }
-
-        num.insert(nums[i]);
+        mp[nums[i]]++;
     }
 
  //   printSet(repeat);
@@ -44,7 +40,7 @@ int main(){
         int flag=0;
         pot=2;
         for(int i2=0;i2<36;i2++){
-            if(num.find(pot-nums[i])!=num.end() && ( (pot-nums[i])!=nums[i] || !(repeat & (1LL << nums[i])) ) ){
+            if(mp.find(pot-nums[i])!=mp.end() && ( (pot-nums[i])!=nums[i] || mp[nums[i]]>1 )){
                 flag=1;
             }
             pot*=2;
