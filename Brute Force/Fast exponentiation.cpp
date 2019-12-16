@@ -1,58 +1,45 @@
-#include <iostream>
-#include <vector>
+// Recursive C program to compute modular power 
+#include <stdio.h> 
+#include<bits/stdc++.h>
+
 using namespace std;
- 
-void FastExponentiation(int number, int power, int mod);
-vector<int> FindBinary(int power);
+int exponentMod(int A, int B, int C) 
+{ 
+	// Base cases 
+	if (A == 0) 
+		return 0; 
+	if (B == 0) 
+		return 1; 
 
-int main(int argc, char *argv[]) {
-	int number = atoi(argv[1]);
-	int power = atoi(argv[2]);
-	int mod = atoi(argv[3]);
-	
-	cout << number << " " << power << " " << mod << endl;
-	
-	FastExponentiation(number, power, mod);
-	return 0;
+	// If B is even 
+	long y; 
+	if (B % 2 == 0) { 
+		y = exponentMod(A, B / 2, C); 
+		y = (y * y) % C; 
+	} 
+
+	// If B is odd 
+	else { 
+		y = A % C; 
+		y = (y * exponentMod(A, B - 1, C) % C) % C; 
+	} 
+
+	return (int)((y + C) % C); 
+} 
+
+// Driver program to test above functions 
+int main() 
+{ 
+int A = 5 , B = 26 , C = 96; 
+cout<<__gcd(A,C)<<endl;
+printf("Power is %d\n", exponentMod(A, B, C)); 
+set<int> s;
+int x=A;
+while(s.find(x)==s.end())
+{
+	s.insert(x);
+	x=(x*A)%C;
 }
-
-void FastExponentiation(int number, int power, int mod){
-    vector<int> binary = FindBinary(power);
-    long long temp = number;
-
-    for(unsigned int i=0;i<binary.size();i++){
-        if(binary[i] == 0){ //s
-        	cout << "0:" << temp << "*" << temp << " mod " << mod << " = " ;
-            temp = ((temp * temp)% mod);
-            cout << temp << endl;
-        }else if(binary[i] == 1){ //sx
-        	cout << "1:(" << temp << "*" << temp << ")*" << number <<") mod " << mod << " = " ;
-            temp = ((temp * temp) * number) % mod;
-            cout << temp << endl;
-            
-        }
-    }
-
-    cout << "Answer: " << temp % mod;
-}
-
-vector<int> FindBinary(int power){
-	int remainder;
-	vector<int> binary;
-
-	while(power > 1){
-		remainder = power % 2;
-        binary.push_back(remainder);
-		power = power / 2;
-	}
-
-	//binary.push_back(1);
-
-	vector<int> output;
-
-	for(int i=binary.size()-1; i > -1;i--){
-        output.push_back(binary[i]);
-	}
-
-	return output;
-}
+cout<<s.size()<<" "<<C-1<<"\n";
+return 0; 
+} 
